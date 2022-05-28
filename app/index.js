@@ -6,10 +6,23 @@ const app = express()
 // connection to database
 const connectDB = require('./db/connection')
 
+const notFoundMiddleware = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
+
+const routers = require('./routers')
+
 
 // middleware
 app.use(express.json())
 
+// routers
+routers(app)
+
+// not-found
+app.use(notFoundMiddleware)
+
+// error handler
+app.use(errorHandlerMiddleware)
 
 
 module.exports = async (port) => {
