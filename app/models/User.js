@@ -34,6 +34,12 @@ userSchema.pre('save', async function () {
     this.password = await bcrypt.hash(this.password, salt)
 })
 
+// compare password
+userSchema.methods.comparePassword = async function (plainPasssword) {
+    const isMatch = await bcrypt.compare(plainPasssword, this.password)
+    return isMatch
+}
+
 // create token
 userSchema.methods.createJWT = function () {
     return jwt.sign({
