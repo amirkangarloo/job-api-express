@@ -32,7 +32,7 @@ module.exports = async (port) => {
             MONGO_URL,
             MONGO_DB_NAME
         } = process.env
-        connectDB(MONGO_URL, MONGO_DB_NAME)
+        await connectDB(MONGO_URL, MONGO_DB_NAME)
 
         app.listen(port, () => {
             console.log(`Server is listening on port ${port}...`);
