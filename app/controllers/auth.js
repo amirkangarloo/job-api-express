@@ -7,15 +7,16 @@ const {
 
 const register = async (req, res, next) => {
     try {
-        
         const newUser = await User.create({
             ...req.body
         })
+        const token = newUser.createJWT()
 
         res.status(StatusCodes.CREATED).send({
             message: 'Create user successful',
             userID: newUser._id,
-            email: newUser.email
+            name: newUser.name,
+            token
         })
 
     } catch (error) {
