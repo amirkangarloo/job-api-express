@@ -1,7 +1,7 @@
 'use strict'
 
 const getAllJobs = async (req, res, next) => {
-    res.send('get all jobs')
+    res.send(req.user)
 }
 
 const getJob = async (req, res, next) => {
