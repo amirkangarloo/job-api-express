@@ -39,7 +39,7 @@ const getJob = async (req, res, next) => {
                 jobId
             }
         } = req
-    
+
         const job = await Job.findOne({
             _id: jobId,
             createdBy: userId
@@ -50,7 +50,7 @@ const getJob = async (req, res, next) => {
         }
 
         res.status(StatusCodes.OK).send(job)
-        
+
     } catch (error) {
         next(error)
     }
@@ -69,7 +69,37 @@ const createJob = async (req, res, next) => {
 }
 
 const updateJob = async (req, res, next) => {
-    res.send('update job')
+    try {
+        const {
+            user: {
+                userId
+            },
+            params: {
+                jobId
+            },
+            body
+        } = req
+        
+        const job = await Job.findOneAndUpdate({
+                _id: jobId,
+                createdBy: userId
+            },
+            body,
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+
+        if (!job) {
+            throw new NotFoundError(`No job with id: ${jobId}`)
+        }
+
+        res.status(StatusCodes.OK).send(job)
+
+    } catch (error) {
+        next(error)
+    }
 }
 
 const deleteJob = async (req, res, next) => {
