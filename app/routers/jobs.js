@@ -2,6 +2,7 @@
 
 const express = require('express')
 const router = express.Router()
+const methodNotAllowedMiddleware = require('../middleware/methodNotAllowed')
 const {
     getAllJobs,
     getJob,
@@ -17,5 +18,8 @@ router.get('/:jobId', getJob)
 router.patch('/:jobId', updateJob)
 router.delete('/:jobId', deleteJob)
 
+// Method Not Allowed
+router.all('/', methodNotAllowedMiddleware)
+router.all('/:jobId', methodNotAllowedMiddleware)
 
 module.exports = router
