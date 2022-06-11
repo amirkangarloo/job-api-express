@@ -68,3 +68,6 @@ npm start
 - helmet (for security)
 - xss-clean (for security)
 - nodemon (for devDependencies)
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
